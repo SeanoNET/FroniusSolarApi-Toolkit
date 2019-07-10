@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.28729.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FroniusSolarApi.Poller", "FroniusSolarApi.Poller\FroniusSolarApi.Poller.csproj", "{BCC99B30-B3C3-4F79-8F73-AB118129ADFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FroniusSolarApi.Repository", "FroniusSolarApi.Repository\FroniusSolarApi.Repository.csproj", "{FED894AC-3798-48AD-9250-7630129BB059}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FroniusSolarApi.Repository", "FroniusSolarApi.Repository\FroniusSolarApi.Repository.csproj", "{FED894AC-3798-48AD-9250-7630129BB059}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

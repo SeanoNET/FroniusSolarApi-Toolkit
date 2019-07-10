@@ -15,9 +15,24 @@ namespace FroniusSolarApi.Repository
         }
 
 
-        public bool SaveData(object data)
+        public bool SaveData(CumulationInverterData data)
         {
-            return false;
+            return _dataRepository.SaveCumulationInverterData(data);
+        }
+
+        public bool SaveData(CommonInverterData data)
+        {
+            return _dataRepository.SaveCommonInverterData(data);
+        }
+
+        public bool SaveData(P3InverterData data)
+        {
+            return _dataRepository.SaveP3InverterData(data);
+        }
+
+        public bool SaveData(MinMaxInverterData data)
+        {
+            return _dataRepository.SaveMinMaxInverterData(data);
         }
     }
 }

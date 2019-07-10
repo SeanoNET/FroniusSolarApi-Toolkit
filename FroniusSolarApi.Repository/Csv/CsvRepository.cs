@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using FroniusSolarClient.Entities.SolarAPI.V1.InverterRealtimeData;
+
+namespace FroniusSolarApi.Repository.Csv
+{
+    public class CsvRepository : IDataRepository
+    {
+        private readonly CsvConfiguration _csvConfiguration;
+
+        public CsvRepository(CsvConfiguration config)
+        {
+            this._csvConfiguration = config;
+        }
+        public bool SaveCommonInverterData(CommonInverterData data)
+        {
+            var writer = new CsvWriter<CommonInverterData>();
+            return writer.WriteCsv(data, _csvConfiguration.GetSaveLocation("CommonInverterData"));
+        }
+
+        public bool SaveCumulationInverterData(CumulationInverterData data)
+        {
+            var writer = new CsvWriter<CumulationInverterData>();
+            return writer.WriteCsv(data, _csvConfiguration.GetSaveLocation("CumulationInverterData"));
+        }
+
+        public bool SaveMinMaxInverterData(MinMaxInverterData data)
+        {
+            var writer = new CsvWriter<MinMaxInverterData>();
+            return writer.WriteCsv(data, _csvConfiguration.GetSaveLocation("MinMaxInverterData"));
+        }
+
+        public bool SaveP3InverterData(P3InverterData data)
+        {
+            var writer = new CsvWriter<P3InverterData>();
+            return writer.WriteCsv(data, _csvConfiguration.GetSaveLocation("P3InverterData"));
+        }
+    }
+}

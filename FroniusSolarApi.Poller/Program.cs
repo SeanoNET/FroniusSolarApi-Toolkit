@@ -1,28 +1,35 @@
-﻿using FroniusSolarApi.Repository;
-using FroniusSolarApi.Repository.Csv;
-using FroniusSolarClient;
-using FroniusSolarClient.Entities.SolarAPI.V1;
-using FroniusSolarClient.Entities.SolarAPI.V1.InverterRealtimeData;
+﻿using CommandLine;
+using FroniusSolarApi.Poller.CLI;
 using System;
 
 namespace FroniusSolarApi.Poller
 {
-    class Program
+    partial class Program
     {
-        static void OutputResponseHeader(CommonResponseHeader responseHeader)
+        static int Main(string[] args)
         {
-            Console.WriteLine($"{responseHeader.Status.Code} at {responseHeader.Timestamp}");
-        }
+            // Poller app
+            var poller = new PollerApp();
 
-        static void Main(string[] args)
-        {
-            RepositoryService service = new RepositoryService(new CsvRepository(new CsvConfiguration(@"C:\Temp","test")));
+            var parser = new Parser(with => {
+                with.CaseInsensitiveEnumValues = true;
+                with.AutoHelp = true;
+                with.AutoVersion = true;
+                with.HelpWriter = Console.Out;
+            });
 
-            var solarClient = new SolarClient("10.1.1.124", 1, OutputResponseHeader);
+            return parser.ParseArguments<FetchOptions, object>(args)
+                    .MapResult(
+                        (FetchOptions opts) => poller.FetchAndSave(opts),
+                    errs => 1);
 
-            var data = solarClient.GetCommonInverterData();
+            //RepositoryService service = new RepositoryService(new CsvRepository(new CsvConfiguration(@"C:\Temp","test")));
 
-            service.SaveData(data);
+            //var solarClient = new SolarClient("10.1.1.124", 1, OutputResponseHeader);
+
+            //var data = solarClient.GetCommonInverterData();
+
+            //service.SaveData(data);
         }
     }
 }

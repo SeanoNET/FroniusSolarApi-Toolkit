@@ -26,7 +26,7 @@ namespace FroniusSolarApi.Poller.CLI
             }
         }
     }
-
+    // TODO: Output supported data stores from repository
     internal enum DataStore
     {
         Console,

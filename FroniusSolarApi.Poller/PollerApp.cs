@@ -5,6 +5,7 @@ using FroniusSolarApi.Repository.Csv;
 using FroniusSolarClient;
 using FroniusSolarClient.Entities.SolarAPI.V1;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,21 +19,23 @@ namespace FroniusSolarApi.Poller
         private readonly SolarClient _solarClient;
 
         private readonly IConfiguration config;
+        private readonly ILogger _logger;
 
-
-        public PollerApp()
+        public PollerApp(ILogger<PollerApp> logger)
         {
+            _logger = logger;
+            config = ConfigurationBuild();
+
             // Configure Solar client
             // TODO: Load from app settings
-            _solarClient = new SolarClient("10.1.1.124", 1);
-
-            config = ConfigurationBuild();
+            _solarClient = new SolarClient("10.1.1.124", 1, OutputResponseHeader);                
         }
 
         private IConfiguration ConfigurationBuild()
         {
+            _logger.LogInformation("Building configuration");
             if (!File.Exists(Directory.GetCurrentDirectory() + "\\appsettings.json"))
-                Console.WriteLine("WARNING - No appsettings.json found");
+                _logger.LogWarning("No appsettings.json found");
 
             // Load from configuration
             var configBuilder = new ConfigurationBuilder()
@@ -44,6 +47,8 @@ namespace FroniusSolarApi.Poller
 
         private void ConfigureRepository(DataStore store)
         {
+            _logger.LogInformation($"Configuring {store} repository");
+
             switch (store)
             {
                 case DataStore.Console:
@@ -61,16 +66,13 @@ namespace FroniusSolarApi.Poller
             }
         }
 
-        static void OutputResponseHeader(CommonResponseHeader responseHeader)
+        void OutputResponseHeader(CommonResponseHeader responseHeader)
         {
-            Console.WriteLine($"{responseHeader.Status.Code} at {responseHeader.Timestamp}");
+            _logger.LogInformation($"Response status: {responseHeader.Status.Code} at {responseHeader.Timestamp}");
         }
-
 
         public int FetchAndSave(FetchOptions opt)
         {
-            Console.WriteLine($"Saving collection data {opt.Collections} to {opt.Store}");
-
             ConfigureRepository(opt.Store);
 
             bool result = false;
@@ -79,14 +81,17 @@ namespace FroniusSolarApi.Poller
             {
                 case FroniusSolarClient.Entities.SolarAPI.V1.InverterRealtimeData.DataCollection.CumulationInverterData:
                     var cumulationInverterData = _solarClient.GetCumulationInverterData();
+                    _logger.LogInformation($"Fetched CumulationInverterData");
                     result = _repositoryService.SaveData(cumulationInverterData);
                     break;
                 case FroniusSolarClient.Entities.SolarAPI.V1.InverterRealtimeData.DataCollection.CommonInverterData:
                     var commonInverterData = _solarClient.GetCommonInverterData();
+                    _logger.LogInformation($"Fetched CommonInverterData");
                     result = _repositoryService.SaveData(commonInverterData);
                     break;
                 case FroniusSolarClient.Entities.SolarAPI.V1.InverterRealtimeData.DataCollection.MinMaxInverterData:
                     var minMaxInverterData = _solarClient.GetMinMaxInverterData();
+                    _logger.LogInformation($"Fetched MinMaxInverterData");
                     result = _repositoryService.SaveData(minMaxInverterData);
                     break;
                 default:
@@ -95,12 +100,12 @@ namespace FroniusSolarApi.Poller
 
             if (result)
             {
-                Console.WriteLine("Data saved successfully");
+                _logger.LogInformation($"Saved successfully");
                 return 0;
             }
             else
             {
-                Console.WriteLine("ERROR - Data save was unsuccessful");
+                _logger.LogError($"Save was unsuccessful");
                 return 1;
             }
 

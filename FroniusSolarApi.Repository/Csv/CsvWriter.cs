@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -13,6 +14,12 @@ namespace FroniusSolarApi.Repository.Csv
     /// <typeparam name="T"></typeparam>
     public class CsvWriter<T>
     {
+        //private readonly ILogger _logger;
+
+        //public CsvWriter(ILogger<CsvWriter<T>> logger)
+        //{
+        //    _logger = logger;
+        //}
         private string BuildCsvRow(object data, bool isHeader)
         {
             if (data == null)

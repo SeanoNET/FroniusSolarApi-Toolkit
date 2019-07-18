@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using FroniusSolarClient.Entities.SolarAPI.V1.InverterRealtimeData;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace FroniusSolarApi.Repository.Csv
 {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using FroniusSolarClient.Entities.SolarAPI.V1.InverterRealtimeData;
+using Microsoft.Extensions.Configuration;
 
 namespace FroniusSolarApi.Repository.Csv
 {
@@ -12,7 +13,11 @@ namespace FroniusSolarApi.Repository.Csv
 
         public CsvRepository(CsvConfiguration config)
         {
-            this._csvConfiguration = config;
+            _csvConfiguration = config;
+        }
+        public CsvRepository(IConfiguration config) 
+            :this(new CsvConfiguration(config))
+        {
         }
         public bool SaveCommonInverterData(CommonInverterData data)
         {

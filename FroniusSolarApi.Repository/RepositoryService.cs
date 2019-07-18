@@ -1,4 +1,5 @@
 ﻿using FroniusSolarClient.Entities.SolarAPI.V1.InverterRealtimeData;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Text;

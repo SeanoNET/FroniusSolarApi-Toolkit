@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using CommandLine.Text;
 using FroniusSolarApi.Poller.CLI;
 using System;
 
@@ -13,15 +14,24 @@ namespace FroniusSolarApi.Poller
 
             var parser = new Parser(with => {
                 with.CaseInsensitiveEnumValues = true;
-                with.AutoHelp = true;
-                with.AutoVersion = true;
-                with.HelpWriter = Console.Out;
+                //with.AutoHelp = true;
+                //with.AutoVersion = true;
+                with.HelpWriter = null; //Console.Out;
             });
-
-            return parser.ParseArguments<FetchOptions, object>(args)
-                    .MapResult(
+            var result = parser.ParseArguments<FetchOptions, object>(args);
+            return result.MapResult(
                         (FetchOptions opts) => poller.FetchAndSave(opts),
-                    errs => 1);
+                    errs => {
+                        var helpText = HelpText.AutoBuild(result, h =>
+                        {
+                            // Configure HelpText	 
+                            h.AddEnumValuesToHelpText = true;
+                            return h;
+                        }, e => e);
+
+                        Console.WriteLine(helpText);
+                        return 1;
+                    });
 
             //RepositoryService service = new RepositoryService(new CsvRepository(new CsvConfiguration(@"C:\Temp","test")));
 

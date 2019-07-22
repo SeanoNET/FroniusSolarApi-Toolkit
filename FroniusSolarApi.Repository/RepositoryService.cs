@@ -7,7 +7,7 @@ using System.Text;
 
 namespace FroniusSolarApi.Repository
 {
-    public class RepositoryService
+    public class RepositoryService 
     {
         private readonly IDataRepository _dataRepository;
 
@@ -15,7 +15,6 @@ namespace FroniusSolarApi.Repository
         {
             this._dataRepository = dataRepository;
         }
-
 
         public bool SaveData(CumulationInverterData data)
         {

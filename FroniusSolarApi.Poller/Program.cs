@@ -1,9 +1,12 @@
 ﻿using CommandLine;
 using CommandLine.Text;
 using FroniusSolarApi.Poller.CLI;
+using FroniusSolarClient;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using System.IO;
 
 namespace FroniusSolarApi.Poller
 {
@@ -11,10 +14,21 @@ namespace FroniusSolarApi.Poller
     {
         private static void ConfigureServices(IServiceCollection services)
         {
-            //we will configure logging here
+            //configure logging here
             services.AddLogging(configure => configure.AddConsole())
                 .Configure<LoggerFilterOptions>(options => options.MinLevel = LogLevel.Information)
-                .AddSingleton<PollerApp>();
+                .AddSingleton<PollerApp>()
+                .AddSingleton<IConfiguration>(c => ConfigurationBuild());
+        }
+
+        private static IConfiguration ConfigurationBuild()
+        {
+            // Load from configuration
+            var configBuilder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", true, true);
+
+            return configBuilder.Build();
         }
 
         static int Main(string[] args)
@@ -33,16 +47,16 @@ namespace FroniusSolarApi.Poller
                 //with.AutoVersion = true;
                 with.HelpWriter = null; //Console.Out;
             });
-            var result = parser.ParseArguments<FetchOptions, object>(args);
+            var result = parser.ParseArguments<FetchInverterRealtimeDataOptions, object>(args);
             return result.MapResult(
-                        (FetchOptions opts) => poller.FetchAndSave(opts),
+                        (FetchInverterRealtimeDataOptions opts) => poller.FetchAndSaveInverterRealtimeData(opts),
                     errs => {
                         var helpText = HelpText.AutoBuild(result, h =>
                         {
                             // Configure HelpText	 
                             h.AddEnumValuesToHelpText = true;
                             return h;
-                        }, e => e);
+                        }, e => e, verbsIndex: true);
 
                         Console.WriteLine(helpText);
                         return 1;

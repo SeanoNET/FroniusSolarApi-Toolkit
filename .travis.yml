@@ -1,0 +1,20 @@
+language: csharp
+mono: none
+dist: xenial
+dotnet: 2.2
+script:
+  - dotnet restore
+  - dotnet build -c Release
+  - dotnet test
+before_deploy:
+  - dotnet publish FroniusSolarApi.Poller/FroniusSolarApi.Poller.csproj --output ../publish/ -c Release --runtime win-x86 
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file_glob: true
+  file: publish/*
+  skip_cleanup: true
+  draft: true
+  on:
+    tags: true
+    branch: master

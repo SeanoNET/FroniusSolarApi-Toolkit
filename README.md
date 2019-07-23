@@ -10,6 +10,8 @@ These instructions will get your clone of FroniusSolarApi-Toolkit up and running
 - `dotnet restore`
 - `dotnet build && dotnet run --project FroniusSolarApi.Poller/FroniusSolarApi.Poller.csproj help`
 
+
+
 ## Components Overview
 
 ### FroniusSolarApi.Poller
@@ -78,6 +80,13 @@ Fetch CumulationInverterData collection and output to the console:
 
   version           Display version information.
 ```
+#### Scheduling
+
+You can setup a [cron](https://en.wikipedia.org/wiki/Cron) schedule to automate the retrieval and storage of inverter data on Linux. For Microsoft Windows you can use [Task Scheduler](https://docs.microsoft.com/en-us/windows/win32/taskschd/task-scheduler-start-page)
+
+#### Logging
+
+By default poller logs will be saved to `logs/pollerlog_{date}.txt`
 
 ### FroniusSolarApi.Repository
 
@@ -143,11 +152,6 @@ Saves the response to a csv file. You can configure the mssql settings under the
 For more information see [Configuration](#configuration)
 
 #### Custom
-
-#### Scheduling
-
-You can setup a [cron](https://en.wikipedia.org/wiki/Cron) schedule to automate the retrieval and storage of inverter data on Linux. For Microsoft Windows you can use [Task Scheduler](https://docs.microsoft.com/en-us/windows/win32/taskschd/task-scheduler-start-page)
-
 
 ### FroniusSolarClient
 

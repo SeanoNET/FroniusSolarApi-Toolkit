@@ -8,6 +8,8 @@ script:
   - dotnet test
 before_deploy:
   - dotnet publish FroniusSolarApi.Poller/FroniusSolarApi.Poller.csproj --output ../publish/ -c Release --runtime win-x64
+  - ls ../publish/
+  - ls publish/
   - cd publish/
   - zip FroniusSolarApi.PollerApp.zip
 deploy:

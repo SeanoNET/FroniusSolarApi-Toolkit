@@ -9,7 +9,7 @@ script:
 before_deploy:
   - dotnet publish FroniusSolarApi.Poller/FroniusSolarApi.Poller.csproj --output ../publish/ -c Release --runtime win-x64
   - ls publish/
-  - zip FroniusSolarApi.PollerApp publish/*
+  - zip FroniusSolarApi.PollerApp.zip publish/*
   - ls
 deploy:
   provider: releases

@@ -10,6 +10,7 @@ before_deploy:
   - dotnet publish FroniusSolarApi.Poller/FroniusSolarApi.Poller.csproj --output ../publish/ -c Release --runtime win-x64
   - ls publish/
   - zip –r FroniusSolarApi.PollerApp.zip publish/
+  - ls
 deploy:
   provider: releases
   api_key: $GITHUB_TOKEN

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace FroniusSolarApi.Poller
@@ -117,13 +118,45 @@ namespace FroniusSolarApi.Poller
             {
                 // Configure repository failed
                 return 1;
+            }        
+        }
+
+        public int FetchAndSaveArchiveData(FetchInverterArchiveDataOptions opt)
+        {
+            if (ConfigureRepository(opt.Store))
+            {
+                bool result = false;
+                try
+                {
+                    var archiveData = _solarClient.GetArchiveData(opt.StartDate, opt.EndDate, opt.Channels.Cast<Channel>().ToList(), opt.DeviceId, opt.Scope, opt.SeriesType, opt.HumanReadable, opt.DeviceClass);
+                    _logger.LogInformation($"Fetched archived data");
+
+                    result = _repositoryService.SaveData(archiveData);
+
+
+
+                    if (result)
+                    {
+                        _logger.LogInformation($"Saved successfully");
+                        return 0;
+                    }
+                    else
+                    {
+                        _logger.LogError($"Save was unsuccessful");
+                        return 1;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "An error occured.");
+                    return 1;
+                }
             }
-
-            
-
-            
-
-           
+            else
+            {
+                // Configure repository failed
+                return 1;
+            }        
         }
     }
 }

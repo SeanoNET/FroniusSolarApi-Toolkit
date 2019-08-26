@@ -39,6 +39,7 @@ namespace FroniusSolarApi.Repository.ConsoleOut
         {
             var writer = new ConsoleWriter<Dictionary<string, ArchiveData>>();
             writer.WriteConsole(data);
+
             return true;
         }
 

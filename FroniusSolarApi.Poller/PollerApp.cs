@@ -30,7 +30,7 @@ namespace FroniusSolarApi.Poller
 
             // Configure Solar client
             // TODO: Load from app settings
-            _solarClient = new SolarClient(config.GetSection("SolarAPI_URL").Value, 1, OutputResponseHeader);                
+            _solarClient = new SolarClient(config.GetSection("SolarAPI_URL").Value,1, logger, OutputResponseHeader);                
         }
 
         private bool ConfigureRepository(DataStore store)
@@ -64,9 +64,9 @@ namespace FroniusSolarApi.Poller
 
         }
 
-        void OutputResponseHeader(CommonResponseHeader responseHeader)
+        static void OutputResponseHeader(CommonResponseHeader responseHeader, ILogger logger)
         {
-            _logger.LogInformation($"Response status: {responseHeader.Status.Code} at {responseHeader.Timestamp}");
+            logger.LogInformation($"Response Header Status - {responseHeader.Status.Code} at {responseHeader.Timestamp}");
         }
 
         public int FetchAndSaveInverterRealtimeData(FetchInverterRealtimeDataOptions opt)

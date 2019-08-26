@@ -1,6 +1,7 @@
 ﻿using CommandLine;
 using CommandLine.Text;
 using FroniusSolarApi.Poller.CLI;
+using FroniusSolarClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

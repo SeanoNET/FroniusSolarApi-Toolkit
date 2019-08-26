@@ -6,19 +6,19 @@ using System.Collections.Generic;
 
 namespace FroniusSolarApi.Poller.CLI
 {
-    [Verb("fetch", HelpText = "Obtain data from various Fronius devices (inverters, SensorCards, StringControls) via the Solar API and save to a data store.")]
+    [Verb("fetchRealtime", HelpText = "Obtain realtime data from various Fronius devices (inverters, SensorCards, StringControls) via the Solar API and save to a data store.")]
     internal class FetchInverterRealtimeDataOptions : Options
     {
-        [Option('c', longName: "collections", HelpText = "Data collections to retrieve.", Required =true)]
+        [Option('c', longName: "Collections", HelpText = "Data collections to retrieve.", Required =true)]
         public DataCollection Collections { get; set; }
 
-        [Option('s', longName: "store", HelpText = "Where to save the data.", Required = true)]
+        [Option('s', longName: "Store", HelpText = "Where to save the data.", Required = true)]
         public DataStore Store { get; set; }
 
-        [Option('p', longName: "scope", HelpText = "Query specific device(s) or whole system.", Required = false, Default = Scope.Device)]
+        [Option('p', longName: "Scope", HelpText = "Query specific device(s) or whole system.", Required = false, Default = Scope.Device)]
         public Scope Scope { get; set; }
 
-        [Option('d', longName: "device", HelpText = "The device id to query.", Required = false, Default = 1)]
+        [Option('d', longName: "Device", HelpText = "The device id to query.", Required = false, Default = 1)]
         public int DeviceId { get; set; }
 
         [Usage(ApplicationAlias = "poller")]

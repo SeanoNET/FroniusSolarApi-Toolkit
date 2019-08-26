@@ -1,4 +1,5 @@
 ﻿using FroniusSolarClient.Entities.SolarAPI.V1.InverterRealtimeData;
+using FroniusSolarClient.Entities.SolarAPI.V1.ArchiveData;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
@@ -34,6 +35,11 @@ namespace FroniusSolarApi.Repository
         public bool SaveData(MinMaxInverterData data)
         {
             return _dataRepository.SaveMinMaxInverterData(data);
+        }
+
+        public bool SaveData(Dictionary<string, ArchiveData> data)
+        {
+            return _dataRepository.SaveArchiveData(data);
         }
     }
 }

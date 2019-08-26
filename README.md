@@ -18,7 +18,7 @@ These instructions will get your clone of FroniusSolarApi-Toolkit up and running
 
 #### Usage
 
-`poller.exe fetch -c CumulationInverterData -s Console`
+`poller.exe fetchRealtime -c CumulationInverterData -s Console`
 
 #### Configuration
 
@@ -55,14 +55,14 @@ Options are **case insensitive**
 |--help | Display this help screen. | --help |
 |--version |  Display version information. | --version |
 
-You can view the poller options by running `poller.exe fetch help`
+You can view the poller options by running `poller.exe fetchRealtime help`
 
 ```
 FroniusSolarApi.Poller 0.0.1
 Copyright (C) 2019 FroniusSolarApi.Poller
 USAGE:
 Fetch CumulationInverterData collection and output to the console:
-  poller fetch
+  poller fetchRealtime
 
   c, collections    Required. Data collections to retrieve. Valid values:
                     CumulationInverterData, CommonInverterData,
@@ -102,7 +102,7 @@ Current supported data sources are listed below.
 #### Console
 
 Prints the response to the console output.
-`poller.exe fetch -c CommonInverterData -s Console`
+`poller.exe fetchRealtime -c CommonInverterData -s Console`
 ```
 {
   "DAY_ENERGY": {

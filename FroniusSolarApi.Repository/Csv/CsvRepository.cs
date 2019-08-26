@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using FroniusSolarClient.Entities.SolarAPI.V1.ArchiveData;
 using FroniusSolarClient.Entities.SolarAPI.V1.InverterRealtimeData;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -20,6 +21,7 @@ namespace FroniusSolarApi.Repository.Csv
             :this(new CsvConfiguration(config))
         {
         }
+
         public bool SaveCommonInverterData(CommonInverterData data)
         {
             var writer = new CsvWriter<CommonInverterData>();
@@ -43,5 +45,12 @@ namespace FroniusSolarApi.Repository.Csv
             var writer = new CsvWriter<P3InverterData>();
             return writer.WriteCsv(data, _csvConfiguration.GetSaveLocation("P3InverterData"));
         }
+
+        public bool SaveArchiveData(Dictionary<string, ArchiveData> data)
+        {
+            var writer = new CsvWriter<Dictionary<string, ArchiveData>>();
+            return writer.WriteCsv(data, _csvConfiguration.GetSaveLocation("ArchiveData"));
+        }
+
     }
 }

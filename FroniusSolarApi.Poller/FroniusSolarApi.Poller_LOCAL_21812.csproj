@@ -8,7 +8,6 @@
     <FileVersion>0.0.1.1</FileVersion>
     <Version>0.0.1</Version>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-    <AssemblyName>SolarApiPoller</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

@@ -75,17 +75,17 @@ namespace FroniusSolarApi.Poller
                     {
                         case FroniusSolarClient.Entities.SolarAPI.V1.InverterRealtimeData.DataCollection.CumulationInverterData:
                             var cumulationInverterResponse = _solarClient.GetCumulationInverterData(opt.DeviceId, opt.Scope);
-                            _logger.LogInformation($"Fetched CumulationInverterData - Status: {cumulationInverterResponse.Head.Status} at {cumulationInverterResponse.Head.Timestamp}");
+                            _logger.LogInformation($"Fetched CumulationInverterData - Status: {cumulationInverterResponse.Head.Status.Code} at {cumulationInverterResponse.Head.Timestamp}");
                             result = _repositoryService.SaveData(cumulationInverterResponse.Body.Data);
                             break;
                         case FroniusSolarClient.Entities.SolarAPI.V1.InverterRealtimeData.DataCollection.CommonInverterData:
                             var commonInverterResponse = _solarClient.GetCommonInverterData(opt.DeviceId, opt.Scope);
-                            _logger.LogInformation($"Fetched CommonInverterData - Status: {commonInverterResponse.Head.Status} at {commonInverterResponse.Head.Timestamp}");
+                            _logger.LogInformation($"Fetched CommonInverterData - Status: {commonInverterResponse.Head.Status.Code} at {commonInverterResponse.Head.Timestamp}");
                             result = _repositoryService.SaveData(commonInverterResponse.Body.Data);
                             break;
                         case FroniusSolarClient.Entities.SolarAPI.V1.InverterRealtimeData.DataCollection.MinMaxInverterData:
                             var minMaxInverterResponse = _solarClient.GetMinMaxInverterData(opt.DeviceId, opt.Scope);
-                            _logger.LogInformation($"Fetched MinMaxInverterData - Status: {minMaxInverterResponse.Head.Status} at {minMaxInverterResponse.Head.Timestamp}");
+                            _logger.LogInformation($"Fetched MinMaxInverterData - Status: {minMaxInverterResponse.Head.Status.Code} at {minMaxInverterResponse.Head.Timestamp}");
                             result = _repositoryService.SaveData(minMaxInverterResponse.Body.Data);
                             break;
                         default:
@@ -123,10 +123,10 @@ namespace FroniusSolarApi.Poller
                 bool result = false;
                 try
                 {
-                    var archiveData = _solarClient.GetArchiveData(opt.StartDate, opt.EndDate, opt.Channels.Cast<Channel>().ToList(), opt.DeviceId, opt.Scope, opt.SeriesType, opt.HumanReadable, opt.DeviceClass);
-                    _logger.LogInformation($"Fetched archived data");
+                    var archiveResponse = _solarClient.GetArchiveData(opt.StartDate, opt.EndDate, opt.Channels.Cast<Channel>().ToList(), opt.DeviceId, opt.Scope, opt.SeriesType, opt.HumanReadable, opt.DeviceClass);
+                    _logger.LogInformation($"Fetched archived data - Status: {archiveResponse.Head.Status.Code} at {archiveResponse.Head.Timestamp}");
 
-                    result = _repositoryService.SaveData(archiveData);
+                    result = _repositoryService.SaveData(archiveResponse.Body.Data);
 
 
 

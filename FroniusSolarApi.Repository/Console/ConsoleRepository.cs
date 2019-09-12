@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using FroniusSolarClient.Entities.SolarAPI.V1.ArchiveData;
 using FroniusSolarClient.Entities.SolarAPI.V1.InverterRealtimeData;
 
 namespace FroniusSolarApi.Repository.ConsoleOut
 {
     public class ConsoleRepository : IDataRepository
     {
-
         public bool SaveCommonInverterData(CommonInverterData data)
         {
             var writer = new ConsoleWriter<CommonInverterData>();
@@ -35,5 +35,13 @@ namespace FroniusSolarApi.Repository.ConsoleOut
             writer.WriteConsole(data);
             return true;
         }
+        public bool SaveArchiveData(Dictionary<string, ArchiveData> data)
+        {
+            var writer = new ConsoleWriter<Dictionary<string, ArchiveData>>();
+            writer.WriteConsole(data);
+
+            return true;
+        }
+
     }
 }

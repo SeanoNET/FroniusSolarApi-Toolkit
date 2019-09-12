@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FroniusSolarApi.Poller.CLI
 {
-    class Options
+    class Options 
     {
     }
 }

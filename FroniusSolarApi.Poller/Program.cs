@@ -1,6 +1,7 @@
 ﻿using CommandLine;
 using CommandLine.Text;
 using FroniusSolarApi.Poller.CLI;
+using FroniusSolarClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -53,10 +54,11 @@ namespace FroniusSolarApi.Poller
                 with.HelpWriter = null; 
             });
 
-            var result = parser.ParseArguments<FetchInverterRealtimeDataOptions, object>(args);
+            var result = parser.ParseArguments<FetchInverterRealtimeDataOptions, FetchInverterArchiveDataOptions, object>(args);
 
             return result.MapResult(
                         (FetchInverterRealtimeDataOptions opts) => poller.FetchAndSaveInverterRealtimeData(opts),
+                        (FetchInverterArchiveDataOptions opts) => poller.FetchAndSaveArchiveData(opts),
                     errs => {
                         var helpText = HelpText.AutoBuild(result, h =>
                         {

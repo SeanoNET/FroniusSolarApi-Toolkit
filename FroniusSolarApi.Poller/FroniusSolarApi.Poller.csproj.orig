@@ -8,12 +8,19 @@
     <FileVersion>0.0.1.1</FileVersion>
     <Version>0.0.1</Version>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+<<<<<<< HEAD
+=======
     <AssemblyName>SolarApiPoller</AssemblyName>
+>>>>>>> feature/archivedata
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.5.0" />
+<<<<<<< HEAD
     <PackageReference Include="FroniusSolarClient.Core" Version="0.2.0" />
+=======
+    <PackageReference Include="FroniusSolarClient.Core" Version="0.1.0" />
+>>>>>>> feature/archivedata
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />

@@ -1,5 +1,6 @@
 ﻿using FroniusSolarClient.Entities.SolarAPI.V1.InverterRealtimeData;
 using FroniusSolarClient.Entities.SolarAPI.V1.ArchiveData;
+using FroniusSolarClient.Entities.SolarAPI.V1.PowerFlowRealtimeData;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
@@ -40,6 +41,11 @@ namespace FroniusSolarApi.Repository
         public bool SaveData(Dictionary<string, ArchiveData> data)
         {
             return _dataRepository.SaveArchiveData(data);
+        }
+
+        public bool SaveData(PowerFlowRealtimeData data)
+        {
+            return _dataRepository.SavePowerFlowRealtimeData(data);
         }
     }
 }

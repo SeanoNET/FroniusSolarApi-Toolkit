@@ -54,11 +54,12 @@ namespace FroniusSolarApi.Poller
                 with.HelpWriter = null; 
             });
 
-            var result = parser.ParseArguments<FetchInverterRealtimeDataOptions, FetchInverterArchiveDataOptions, object>(args);
+            var result = parser.ParseArguments<FetchInverterRealtimeDataOptions, FetchInverterArchiveDataOptions, FetchPowerFlowRealtimeDataOptions, object>(args);
 
             return result.MapResult(
                         (FetchInverterRealtimeDataOptions opts) => poller.FetchAndSaveInverterRealtimeData(opts),
                         (FetchInverterArchiveDataOptions opts) => poller.FetchAndSaveArchiveData(opts),
+                        (FetchPowerFlowRealtimeDataOptions opts) => poller.FetchAndSavePowerFlowRealtimeData(opts),
                     errs => {
                         var helpText = HelpText.AutoBuild(result, h =>
                         {

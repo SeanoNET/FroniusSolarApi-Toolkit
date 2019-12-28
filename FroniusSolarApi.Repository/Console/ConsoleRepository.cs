@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using FroniusSolarClient.Entities.SolarAPI.V1.ArchiveData;
 using FroniusSolarClient.Entities.SolarAPI.V1.InverterRealtimeData;
+using FroniusSolarClient.Entities.SolarAPI.V1.PowerFlowRealtimeData;
 
 namespace FroniusSolarApi.Repository.ConsoleOut
 {
@@ -43,5 +44,11 @@ namespace FroniusSolarApi.Repository.ConsoleOut
             return true;
         }
 
+        public bool SavePowerFlowRealtimeData(PowerFlowRealtimeData data)
+        {
+            var writer = new ConsoleWriter<PowerFlowRealtimeData>();
+            writer.WriteConsole(data);
+            return true;
+        }
     }
 }

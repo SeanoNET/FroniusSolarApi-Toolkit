@@ -154,5 +154,40 @@ namespace FroniusSolarApi.Poller
                 return 1;
             }        
         }
-    }
+
+        public int FetchAndSavePowerFlowRealtimeData(FetchPowerFlowRealtimeDataOptions opt)
+        {
+            if (ConfigureRepository(opt.Store))
+            {
+                bool result = false;
+                try
+                {
+                    var powerFlowRealtimeDataResponse = _solarClient.GetPowerFlowRealtimeData();
+                    _logger.LogInformation($"Fetched PowerFlowRealtimeData - Status: {powerFlowRealtimeDataResponse.Head.Status.Code} at {powerFlowRealtimeDataResponse.Head.Timestamp}");
+                    result = _repositoryService.SaveData(powerFlowRealtimeDataResponse.Body.Data);
+
+                    if (result)
+                    {
+                        _logger.LogInformation($"Saved successfully");
+                        return 0;
+                    }
+                    else
+                    {
+                        _logger.LogError($"Save was unsuccessful");
+                        return 1;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "An error occured.");
+                    return 1;
+                }
+            }
+            else
+            {
+                // Configure repository failed
+                return 1;
+            }
+        }
+    } 
 }

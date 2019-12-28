@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using FroniusSolarClient.Entities.SolarAPI.V1.ArchiveData;
 using FroniusSolarClient.Entities.SolarAPI.V1.InverterRealtimeData;
+using FroniusSolarClient.Entities.SolarAPI.V1.PowerFlowRealtimeData;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -52,5 +53,10 @@ namespace FroniusSolarApi.Repository.Csv
             return writer.WriteCsv(data, _csvConfiguration.GetSaveLocation("ArchiveData"));
         }
 
+        public bool SavePowerFlowRealtimeData(PowerFlowRealtimeData data)
+        {
+            var writer = new CsvWriter<PowerFlowRealtimeData>();
+            return writer.WriteCsv(data, _csvConfiguration.GetSaveLocation("PowerFlowRealtimeData"));
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using FroniusSolarClient.Entities.SolarAPI.V1.ArchiveData;
 using FroniusSolarClient.Entities.SolarAPI.V1.InverterRealtimeData;
+using FroniusSolarClient.Entities.SolarAPI.V1.PowerFlowRealtimeData;
 using System;
 using System.Collections.Generic;
 
@@ -16,5 +17,7 @@ namespace FroniusSolarApi.Repository
         bool SaveMinMaxInverterData(MinMaxInverterData data);
 
         bool SaveArchiveData(Dictionary<string, ArchiveData> data);
+
+        bool SavePowerFlowRealtimeData(PowerFlowRealtimeData data);
     }
 }

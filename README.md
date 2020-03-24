@@ -84,6 +84,18 @@ Fetch CumulationInverterData collection and output to the console:
 
 You can setup a [cron](https://en.wikipedia.org/wiki/Cron) schedule to automate the retrieval and storage of inverter data on Linux. For Microsoft Windows you can use [Task Scheduler](https://docs.microsoft.com/en-us/windows/win32/taskschd/task-scheduler-start-page)
 
+#### CIFS/Samba file share on linux
+
+If you would like to save the Csv file onto a CIFS/Samba share run:
+
+- `sudo apt update`
+- `sudo apt install samba samba-common-bin smbclient cifs-utils`
+- `sudo mount.cifs //<ip>/<share>/ /home/pi/<local> --verbose -o user=<user>,uid=1000,gid=1000`
+
+Replace uid and gid with your user id, you can find this info by running `cat /etc/passwd`
+
+> For more info see the [Raspberry Pi documentation](https://www.raspberrypi.org/documentation/remote-access/samba.md)
+
 #### Logging
 
 By default poller logs will be saved to `logs/pollerlog_{date}.txt`

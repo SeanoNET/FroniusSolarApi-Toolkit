@@ -46,7 +46,7 @@ namespace FroniusSolarApi.Repository.Csv
 
         public string GetSaveLocation(string collection)
         {
-            return FileLocation + @"\" + collection + "_" + FileName + ".csv";
+            return FileLocation + @"/" + collection + "_" + FileName + ".csv";
         }
     }
 }

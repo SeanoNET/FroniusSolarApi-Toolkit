@@ -4,7 +4,8 @@ dist: xenial
 dotnet: 2.2
 script:
   - dotnet restore
-  - dotnet build -c Release
+  - dotnet build -c Release --runtime win-x64
+  - dotnet build -c Release --runtime linux-arm
   - dotnet test
 before_deploy:
   - dotnet publish FroniusSolarApi.Poller/FroniusSolarApi.Poller.csproj --output ../publish/win-x64 -c Release --runtime win-x64

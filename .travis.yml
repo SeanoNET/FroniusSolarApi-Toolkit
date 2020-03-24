@@ -7,12 +7,16 @@ script:
   - dotnet build -c Release
   - dotnet test
 before_deploy:
-  - dotnet publish FroniusSolarApi.Poller/FroniusSolarApi.Poller.csproj --output ../publish/ -c Release --runtime win-x64
-  - zip FroniusSolarApi.PollerApp.zip publish/*
+  - dotnet publish FroniusSolarApi.Poller/FroniusSolarApi.Poller.csproj --output ../publish/win-x64 -c Release --runtime win-x64
+  - dotnet publish FroniusSolarApi.Poller/FroniusSolarApi.Poller.csproj --output ../publish/linux-arm -c Release --runtime linux-arm
+  - zip FroniusSolarApi.PollerApp_win-x64.zip publish/win-x64/*
+  - zip FroniusSolarApi.PollerApp_linux-arm.zip publish/linux-arm/*
 deploy:
   provider: releases
   api_key: $GITHUB_TOKEN
-  file: FroniusSolarApi.PollerApp.zip
+  file: 
+    - "FroniusSolarApi.PollerApp_win-x64.zip"
+    - "FroniusSolarApi.PollerApp_linux-arm.zip"
   skip_cleanup: true
   draft: true
   on:

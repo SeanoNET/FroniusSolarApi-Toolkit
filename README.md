@@ -5,7 +5,7 @@ Tools and libraries to help you retrieve/consume and store data from the Fronius
 
 These instructions will get your clone of FroniusSolarApi-Toolkit up and running on your local machine for development.
 
-- Download and install [.NET Core 2.2+](https://dotnet.microsoft.com/download) 
+- Download and install [.NET 6.0](https://dotnet.microsoft.com/download) 
 - `cd /FroniusSolarApi-Toolkit/`
 - `dotnet restore`
 - `dotnet build && dotnet run --project FroniusSolarApi.Poller/FroniusSolarApi.Poller.csproj help`

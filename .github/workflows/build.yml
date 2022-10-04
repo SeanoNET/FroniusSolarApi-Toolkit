@@ -1,4 +1,4 @@
-name: dotnet package
+name: dotnet build
 
 on:
   pull_request:
